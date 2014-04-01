@@ -1,0 +1,164 @@
+<!DOCTYPE HTML >
+<html lang="en">
+<head>
+    
+    <title>ADAGE</title>
+    <meta name="description"
+          content="ADAGE includes the ability to integrate game-based data streams into, for example,
+          school information systems, game recommendation engines and player community sites.">
+    
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
+    <!-- Typekit -->
+    <script type="text/javascript" src="//use.typekit.net/iag3oxn.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    
+</head>
+
+<body id="examples_page">
+    
+    <div class="small_navigation_container">
+        
+        <div class="center">
+            
+            <a href="index.html">
+                <div class="small_logo floatleft">
+                    <p class="logotype floatleft">ADAGE</p> <p class="betatype floatleft">Beta</p>
+                </div>
+            </a>
+            
+            <ul class="navigation">
+                <li><a href="applications.html" class="applications_page">Applications</a></li>
+                <li><a href="https://github.com/wids-eria/ADAGE/tree/master/doc" target="_blank">Documentation</a></li>
+                <li><a href="" class="examples_page">Examples</a></li>
+                <li><a href="about.html" class="about_page">About</a></li>
+            </ul>
+            
+        </div>
+    
+    </div>
+    
+       
+<div class="page_wrap">
+    
+    <br />
+    
+    <p class="app_title">Data Logging Examples</p>
+    
+    <br />
+    
+    <div class="full_width">
+        <p class="example">Tic Tac Toe</p>
+        
+        <p class="bold italic">An example of using ADAGE to log game data (in Unity-C#)</p>
+        <br />
+        <p>This implementation of Tic Tac Toe consists of only one player controlled actor and the other decisions
+        are made by an AI. The player is allowed the option of picking the size of the grid. Starting from the
+        standard 3 by 3 and working up to a 6 by 6.
+        
+        <br /><br />
+        
+           Structure that is logged when the player starts a new match. The additional fields we added for this
+           game record the size of the grid and if the player gets the first move.
+           
+        </p>
+        
+        <p class="snippet floatleft">
+            TTTMatchStart : ADAGEContextStart <br />
+                <span class="bracket">{</span> <br />
+                    <span class="bluecode">int grid_size;</span><br />
+                    <span class="bluecode">bool player_starts;</span><br />
+                <span class="bracket">}</span>
+        </p>
+        
+        <p class="floatleft">
+            Structure logged at the end of a match. The Success field would be filled in as true is the
+            player won the match and false if the player lost or it is a draw. Draw is set to false if
+            their is a winner, true if there is no winner.
+        </p>
+        
+        <p class="snippet floatleft">
+            TTTEndMatch : ADAGEContextEnd <br />
+                <span class="bracket">{</span> <br />
+                    <span class="bluecode">bool draw;</span><br />
+                <span class="bracket">}</span>
+        </p>
+        
+        <p class="floatleft">
+            The player is presented with a choice of marker to use on the board. This log records which
+            marker (e.g. “X” or “O”) they chose.
+        </p>
+        
+        <p class="snippet floatleft">
+            TTTPlayerMarkerChoice : ADAGEGameEvent <br />
+                <span class="bracket">{</span> <br />
+                    <span class="bluecode">string marker;</span><br />
+                <span class="bracket">}</span>
+        </p>
+        
+        <p class="floatleft">
+            Because this is a 2D game the positional context isn’t really necessary. All events will
+            be logged as a subclass of the ADAGEGameEvent. The position is the location on the grid
+            that the player or AI played their marker. The grid is indexed from 0,0 to n,n (in this
+            case, n=2) starting in the upper left to lower right. For example the topmost, leftmost
+            grid position is 0,0. 
+        </p>
+        
+        <p class="snippet floatleft">
+            TTTPlayerMove : ADAGEGameEvent <br />
+                <span class="bracket">{</span> <br />
+                    <span class="bluecode">Vector2 position;</span><br />
+                <span class="bracket">}</span>
+                
+                <br /><br />
+                
+                TTTAIMove : ADAGEGameEvent<br />
+                <span class="bracket">{</span> <br />
+                    <span class="bluecode">Vector2 position;</span><br />
+                <span class="bracket">}</span>
+        </p>
+        
+        <p class="floatleft">
+            The entire state for the grid is logged after every move in grid_state. The grid is initialized with
+            all zeros. All the player moves are represented with ones and the AI moves with 2s.
+        </p>
+        
+        <p class="snippet floatleft">
+            TTTGridState : ADAGEGameEvent
+ <br />
+                <span class="bracket">{</span> <br />
+                    <span class="bluecode">int grid_state[][];</span><br />
+                <span class="bracket">}</span>
+        </p>
+        
+    </div>
+
+    <!--<div class="full_width">
+        <p class="example">Super Mario - <span class="italic">Coming Soon</span></p>
+    </div>-->
+    
+<!-- Footer -->
+    <div class="footer">
+        <ul class="center">
+            <li> <a href="http://www.gameslearningsociety.org" target="_blank">Games Learning Society</a></li>
+            <li> <a href="http://wid.wisc.edu/" target="_blank">Wisconsin Institutes for Discovery</a></li>
+            <li> <a href="http://www.learninggamesnetwork.org" target="_blank">Learning Games Network</a></li>
+            <li> <a href="http://www.nsf.gov/" target="_blank">National Science Foundation
+            </a></li>
+        </ul>
+        
+        <p class="center_text">©2014 Learning Games Network</p>
+
+    </div>
+    
+    
+</div><!-- End Page Wrap -->
+
+
+<div class="clear"></div>
+ 
+ 
+</body>
+
+</html>
