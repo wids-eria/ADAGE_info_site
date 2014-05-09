@@ -99,6 +99,15 @@ body#about_page .navigation li a.about_page,
 body#examples_page .navigation li a.examples_page {
   color: #4597b5; }
 
+body#documentation_page .navigation li a.documentation_page {
+  color: #4597b5; }
+
+body#roadmap_page .navigation li a.roadmap_page {
+  color: #4597b5; }
+
+body#publication_page .navigation li a.publication_page {
+  color: #4597b5; }
+
 /* End Active Page */
 /* Navigation */
 .navigation_container {
